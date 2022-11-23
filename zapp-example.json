@@ -1,0 +1,156 @@
+{
+  "name": "sam",
+  "description": "Wazi's code samples with COBOL, PL/I, and HLASM applications",
+  "version": "3.0.0",
+  "author": {
+    "name": "IBM CORPORATION"
+  },
+  "propertyGroups": [
+    {
+      "name": "cobol-copybooks",
+      "language": "cobol",
+      "libraries": [
+        {
+          "name": "syslib",
+          "type": "local",
+          "locations": [
+            "**/COPYBOOK"
+          ]
+        },
+        {
+          "name": "MYLIB",
+          "type": "mvs",
+          "locations": [
+            "IBMUSER.SAMPLE.COPYLIB"
+          ]
+        },
+        {
+          "name": "MYFILE",
+          "type": "local",
+          "locations": [
+            "**/COPYLIB"
+          ]
+        },
+        {
+          "name": "MYLIB",
+          "type": "local",
+          "locations": [
+            "**/COPYLIB-MVS"
+          ]
+        },
+        {
+          "name": "syslib",
+          "type": "mvs",
+          "locations": [
+            "IBMUSER.SAMPLE.COBCOPY"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "pl1-includes",
+      "language": "pl1",
+      "compilerOptions": "not(!)",
+      "libraries": [
+        {
+          "name": "syslib",
+          "type": "local",
+          "locations": [
+            "**/INCLUDES"
+          ]
+        },
+        {
+          "name": "MYLIB",
+          "type": "mvs",
+          "locations": [
+            "IBMUSER.SAMPLE.PLI.INCLLIB"
+          ]
+        },
+        {
+          "name": "MYFILE",
+          "type": "local",
+          "locations": [
+            "**/INCLUDELIB"
+          ]
+        },
+        {
+          "name": "MYLIB",
+          "type": "local",
+          "locations": [
+            "**/INCLUDELIB-MVS"
+          ]
+        },
+        {
+          "name": "syslib",
+          "type": "mvs",
+          "locations": [
+            "IBMUSER.SAMPLE.PLINC"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "hlasm-local",
+      "language": "hlasm",
+      "libraries": [
+        {
+          "name": "syslib",
+          "type": "local",
+          "locations": [
+            "**/ASMCOPY"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "rexx-local",
+      "language": "rexx",
+      "libraries": [
+        {
+          "name": "syslib",
+          "type": "local",
+          "locations": [
+            "**/REXXINC"
+          ]
+        },
+        {
+          "name": "REXXLIB",
+          "type": "local",
+          "locations": [
+            "**/REXXLIB"
+          ]
+        }
+      ]
+    }
+  ],
+  "profiles": [
+    {
+      "name": "RSE-Mappings",
+      "type": "rseapi",
+      "settings": {
+        "mappings": [
+          {
+            "resource": "**.SAMPLE.COB**",
+            "extension": "cbl",
+            "transfer": "text",
+            "encoding": "IBM-037",
+            "memberMappings": [
+              {
+                "extension": "dat",
+                "transfer": "binary",
+                "resource": "*DAT"
+              }
+            ]
+          },
+          {
+            "resource": "**PLI*",
+            "extension": "pl1",
+            "transfer": "text",
+            "encoding": "IBM-037"
+          }
+        ],
+        "default.encoding": "IBM-037"
+      }
+    }
+  ]
+}
