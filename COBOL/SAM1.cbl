@@ -28,7 +28,7 @@
       *                  SUBTRACT                 +99999999.99
       * (The "ss" field is a subscript, used for the MONTH field only)
       * DELETE ___key____  <== Delete Record
-      * ADD    ___key____  <== Add a new blank record
+      * ADD    ___key____  <== Add a new blank recor
       *
       *****************************************************************
        IDENTIFICATION DIVISION.
