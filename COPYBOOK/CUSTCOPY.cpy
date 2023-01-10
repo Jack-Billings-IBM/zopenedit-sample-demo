@@ -12,7 +12,7 @@
       *
       * xxxxxxx
       *   The following File Manager OPTION:
-      *   6. COBOL compiler specifications
+      *   6. COBOL compiler specifcations
       *   must be set-up for this copybook version to work.
       *   See the example below:
       *
