@@ -26,7 +26,7 @@
       *                  REPLACE                  character_string______
       *                  ADD                      +99999999
       *                  SUBTRACT                 +99999999.99
-      * (The "ss" field is a subscript, usd for the MONTH field only)
+      * (The "ss" field is a subscript, used for the MONTH field only)
       * DELETE ___key____  <== Delete Record
       * ADD    ___key____  <== Add a new blank record
       *
@@ -72,61 +72,46 @@
 
        FD  REPORT-FILE
            RECORDING MODE IS F.
-       01 REPORT-RECORD          PIC X(132).
+       01 REPORT-RECORD        PIC X(132).
 
       *****************************************************************
        WORKING-STORAGE SECTION.
       *****************************************************************
       *
-       01 SYSTEM-DATE-AND-TIME.
-        05 CURRENT-DATE.
-         10 CURRENT-YEAR         PIC 9(2).
-         10 CURRENT-MONTH        PIC 9(2).
-         10 CURRENT-DAY          PIC 9(2).
-        05 CURRENT-TIME.
-         10 CURRENT-HOUR         PIC 9(2).
-         10 CURRENT-MINUTE       PIC 9(2).
-         10 CURRENT-SECOND       PIC 9(2).
-         10 CURRENT-HNDSEC       PIC 9(2).
+      * This copybook demonstrates the libraries setting with a local
+      * copybook
       *
-       01 REPORT-TOTALS.
-        05 NUM-TRAN-RECS         PIC S9(9) COMP-3 VALUE +0.
-        05 NUM-TRAN-ERRORS       PIC S9(9) COMP-3 VALUE +0.
-        05 NUM-ADD-REQUESTS      PIC S9(9) COMP-3 VALUE +0.
-        05 NUM-ADD-PROCESSED     PIC S9(9) COMP-3 VALUE +0.
-        05 NUM-UPDATE-REQUESTS   PIC S9(9) COMP-3 VALUE +0.
-        05 NUM-UPDATE-PROCESSED  PIC S9(9) COMP-3 VALUE +0.
-        05 NUM-DELETE-REQUESTS   PIC S9(9) COMP-3 VALUE +0.
-        05 NUM-DELETE-PROCESSED  PIC S9(9) COMP-3 VALUE +0.
-        05 NUM-CRUNCH-REQUESTS   PIC S9(9) COMP-3 VALUE +0.
-        05 NUM-CRUNCH-PROCESSED  PIC S9(9) COMP-3 VALUE +0.
-        05 NUM-RPTALL-REQUESTS   PIC S9(9) COMP-3 VALUE +0.
-        05 NUM-RPTALL-PROCESSED  PIC S9(9) COMP-3 VALUE +0.
-        05 NUM-GEN-REQUESTS      PIC S9(9) COMP-3 VALUE +0.
-        05 NUM-GEN-PROCESSED     PIC S9(9) COMP-3 VALUE +0.
+       COPY DATETIME IN MYFILE.
+
+      * This copybook demonstrates the libraries setting with an MVS
+      * copybook
       *
+       COPY REPTTOTL IN MYLIB.
+
        01 WS-FIELDS.
-        05 WS-CUSTFILE-STATUS    PIC X(2) VALUE SPACES.
-        05 WS-CUSTOUT-STATUS     PIC X(2) VALUE SPACES.
-        05 WS-TRANFILE-STATUS    PIC X(2) VALUE SPACES.
-        05 WS-REPORT-STATUS      PIC X(2) VALUE SPACES.
-        05 WS-TRAN-EOF           PIC X VALUE SPACES.
-        05 WS-TRAN-OK            PIC X VALUE 'N'.
-        05 WS-CUST-FILE-OK       PIC X VALUE 'N'.
-        05 WS-CUST-FILE-EOF      PIC X VALUE 'N'.
-        05 WS-TRAN-MSG           PIC X(50) VALUE SPACES.
-        05 WS-PREV-TRAN-KEY      PIC X(13) VALUE LOW-VALUES.
-        05 INCR-CUST-ID          PIC 9(5) VALUE 0.
-        05 START-CUST-ID         PIC 9(5) VALUE 0.
-        05 MAX-CUST-ID           PIC 9(5) VALUE 0.
-        05 SAM2                  PIC X(8) VALUE 'SAM2'.
+        05 WS-CUSTFILE-STATUS  PIC X(2) VALUE SPACES.
+        05 WS-CUSTOUT-STATUS   PIC X(2) VALUE SPACES.
+        05 WS-TRANFILE-STATUS  PIC X(2) VALUE SPACES.
+        05 WS-REPORT-STATUS    PIC X(2) VALUE SPACES.
+        05 WS-TRAN-EOF         PIC X VALUE SPACES.
+        05 WS-TRAN-OK          PIC X VALUE 'N'.
+        05 WS-CUST-FILE-OK     PIC X VALUE 'N'.
+        05 WS-CUST-FILE-EOF    PIC X VALUE 'N'.
+        05 WS-TRAN-MSG         PIC X(50) VALUE SPACES.
+        05 WS-PREV-TRAN-KEY    PIC X(13) VALUE LOW-VALUES.
+        05 INCR-CUST-ID        PIC 9(5) VALUE 0.
+        05 START-CUST-ID       PIC 9(5) VALUE 0.
+        05 MAX-CUST-ID         PIC 9(5) VALUE 0.
+        05 SAM2                PIC X(8) VALUE 'SAM2'.
       *
       * some additional comments
       * some more additional comments
       *
        01 WORK-VARIABLES.
-        05 I                     PIC S9(9) COMP-3 VALUE +0.
-        05 WORK-NUM              PIC S9(8) COMP.
+        05 I                   PIC S9(9) COMP-3 VALUE +0.
+        05 WORK-NUM            PIC S9(8) COMP.
+
+
 
        COPY CUSTCOPY REPLACING ==:TAG:== BY ==WS-CUST==.
 
@@ -134,82 +119,80 @@
       * report lines
       ********************
        01 ERR-MSG-BAD-TRAN.
-        05 FILLER                PIC X(31)
+        05 FILLER              PIC X(31)
            VALUE 'Error Processing Transaction. '.
-        05 ERR-MSG-DATA1         PIC X(35) VALUE SPACES.
-        05 ERR-MSG-DATA2         PIC X(66) VALUE SPACES.
+        05 ERR-MSG-DATA1       PIC X(35) VALUE SPACES.
+        05 ERR-MSG-DATA2       PIC X(66) VALUE SPACES.
        01 ERR-MSG-BAD-TRAN-2.
-        05 FILLER                PIC X(21) VALUE SPACES.
-        05 ERR-MSG-DATA3         PIC X(80).
-        05 FILLER                PIC X(31) VALUE SPACES.
+        05 FILLER              PIC X(21) VALUE SPACES.
+        05 ERR-MSG-DATA3       PIC X(80).
+        05 FILLER              PIC X(31) VALUE SPACES.
        01 MSG-TRAN-SCALE-1.
-        05 FILLER                PIC X(21) VALUE SPACES.
-        05 FILLER                PIC X(35)
+        05 FILLER              PIC X(21) VALUE SPACES.
+        05 FILLER              PIC X(35)
            VALUE '         1    1    2    2    3    3'.
-        05 FILLER                PIC X(35)
+        05 FILLER              PIC X(35)
            VALUE '    4    4    5    5    6    6    7'.
-        05 FILLER                PIC X(41) VALUE SPACES.
+        05 FILLER              PIC X(41) VALUE SPACES.
        01 MSG-TRAN-SCALE-2.
-        05 FILLER                PIC X(21) VALUE ' Transaction Record: '
-           .
-        05 FILLER                PIC X(35)
+        05 FILLER              PIC X(21) VALUE ' Transaction Record: '.
+        05 FILLER              PIC X(35)
            VALUE '....5....0....5....0....5....0....5'.
-        05 FILLER                PIC X(35)
+        05 FILLER              PIC X(35)
            VALUE '....0....5....0....5....0....5....0'.
-        05 FILLER                PIC X(41) VALUE SPACES.
+        05 FILLER              PIC X(41) VALUE SPACES.
        01 RPT-HEADER1.
-        05 FILLER                PIC X(40)
+        05 FILLER              PIC X(40)
            VALUE 'CUSTOMER FILE UPDATE REPORT       DATE: '.
-        05 RPT-MM                PIC 99.
-        05 FILLER                PIC X VALUE '/'.
-        05 RPT-DD                PIC 99.
-        05 FILLER                PIC X VALUE '/'.
-        05 RPT-YY                PIC 99.
-        05 FILLER                PIC X(20)
+        05 RPT-MM              PIC 99.
+        05 FILLER              PIC X VALUE '/'.
+        05 RPT-DD              PIC 99.
+        05 FILLER              PIC X VALUE '/'.
+        05 RPT-YY              PIC 99.
+        05 FILLER              PIC X(20)
            VALUE ' (mm/dd/yy)   TIME: '.
-        05 RPT-HH                PIC 99.
-        05 FILLER                PIC X VALUE ':'.
-        05 RPT-MIN               PIC 99.
-        05 FILLER                PIC X VALUE ':'.
-        05 RPT-SS                PIC 99.
-        05 FILLER                PIC X(55) VALUE SPACES.
+        05 RPT-HH              PIC 99.
+        05 FILLER              PIC X VALUE ':'.
+        05 RPT-MIN             PIC 99.
+        05 FILLER              PIC X VALUE ':'.
+        05 RPT-SS              PIC 99.
+        05 FILLER              PIC X(55) VALUE SPACES.
        01 RPT-TRAN-DETAIL1.
-        05 RPT-TRAN-MSG1         PIC X(31)
+        05 RPT-TRAN-MSG1       PIC X(31)
            VALUE '       Transaction processed: '.
-        05 RPT-TRAN-RECORD       PIC X(80) VALUE SPACES.
-        05 FILLER                PIC X(21) VALUE SPACES.
+        05 RPT-TRAN-RECORD     PIC X(80) VALUE SPACES.
+        05 FILLER              PIC X(21) VALUE SPACES.
        01 RPT-STATS-HDR1.
-        05 FILLER                PIC X(26) VALUE
+        05 FILLER              PIC X(26) VALUE
            'Transaction Totals:       '.
-        05 FILLER                PIC X(107) VALUE SPACES.
+        05 FILLER              PIC X(107) VALUE SPACES.
        01 RPT-STATS-HDR2.
-        05 FILLER                PIC X(26) VALUE
+        05 FILLER              PIC X(26) VALUE
            'Transaction      Number of'.
-        05 FILLER                PIC X(28) VALUE
+        05 FILLER              PIC X(28) VALUE
            '        Number        Number'.
-        05 FILLER                PIC X(79) VALUE SPACES.
+        05 FILLER              PIC X(79) VALUE SPACES.
        01 RPT-STATS-HDR3.
-        05 FILLER                PIC X(26) VALUE
+        05 FILLER              PIC X(26) VALUE
            'Type          Transactions'.
-        05 FILLER                PIC X(28) VALUE
+        05 FILLER              PIC X(28) VALUE
            '     Processed      In Error'.
-        05 FILLER                PIC X(79) VALUE SPACES.
+        05 FILLER              PIC X(79) VALUE SPACES.
        01 RPT-STATS-HDR4.
-        05 FILLER                PIC X(26) VALUE
+        05 FILLER              PIC X(26) VALUE
            '-----------   ------------'.
-        05 FILLER                PIC X(28) VALUE
+        05 FILLER              PIC X(28) VALUE
            '   -----------   -----------'.
-        05 FILLER                PIC X(79) VALUE SPACES.
+        05 FILLER              PIC X(79) VALUE SPACES.
        01 RPT-STATS-DETAIL.
-        05 RPT-TRAN              PIC X(10).
-        05 FILLER                PIC X(4) VALUE SPACES.
-        05 RPT-NUM-TRANS         PIC ZZZ,ZZZ,ZZ9.
-        05 FILLER                PIC X(3) VALUE SPACES.
-        05 RPT-NUM-TRAN-PROC     PIC ZZZ,ZZZ,ZZ9.
-        05 FILLER                PIC X(3) VALUE SPACES.
-        05 RPT-NUM-TRAN-ERR      PIC ZZZ,ZZZ,ZZ9.
-        05 FILLER                PIC X(80) VALUE SPACES.
-
+        05 RPT-TRAN            PIC X(10).
+        05 FILLER              PIC X(4) VALUE SPACES.
+        05 RPT-NUM-TRANS       PIC ZZZ,ZZZ,ZZ9.
+        05 FILLER              PIC X(3) VALUE SPACES.
+        05 RPT-NUM-TRAN-PROC   PIC ZZZ,ZZZ,ZZ9.
+        05 FILLER              PIC X(3) VALUE SPACES.
+        05 RPT-NUM-TRAN-ERR    PIC ZZZ,ZZZ,ZZ9.
+        05 FILLER              PIC X(80) VALUE SPACES.
 
       *****************************************************************
        PROCEDURE DIVISION.
@@ -299,7 +282,7 @@
             PERFORM 299-REPORT-BAD-TRAN
            ELSE
       *
-      *        Subroutine SAM2 will apply an update to a customer record
+      *    Subroutine SAM2 will apply an update to a customer record
       *
             CALL SAM2 USING CUST-REC, TRANSACTION-RECORD,
                WS-TRAN-OK, WS-TRAN-MSG
