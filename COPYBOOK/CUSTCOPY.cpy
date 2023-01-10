@@ -18,7 +18,7 @@
       *
       *   COBOL REPLACE OPTIONS:
       *      FROM STRING                       TO STRING
-      *   1. ==:TAG:==                      BY ==LAB==
+      *   1. ==:TAG:==                     BY ==LAB==
       *
       *** +++++++++++++++++++++++++++++++++++++++++++++++++++
        01 :TAG:-REC.
