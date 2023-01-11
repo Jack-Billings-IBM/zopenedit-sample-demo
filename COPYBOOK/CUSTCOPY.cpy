@@ -17,7 +17,7 @@
       *   See the example below:
       *
       *   COBOL REPLACE OPTIONS:
-      *      FROM STRING                       TO STRING
+      *      FROM STING                       TO STRING
       *   1. ==:TAG:==                     BY ==LAB==
       *
       *** +++++++++++++++++++++++++++++++++++++++++++++++++++
