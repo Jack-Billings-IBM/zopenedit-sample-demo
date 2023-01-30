@@ -3,7 +3,7 @@
        IDENTIFICATION DIVISION.
        PROGRAM-ID. KAFKAP.
       *****************************************************************
-      * MODULE NAME = KAFKAP                                      *
+      *                                      *
       *                                                               *
       * DESCRIPTIVE NAME = CICS Event Process and Transform           *
       *                                                               *
